@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novidades IA — 23 de Abril de 2026 | Marco Neves AI</title>
+  <meta name="doc-title" content="Novidades IA: Modelos em corrida, regulação a apertar e a escola ainda à procura do seu lugar">
+  <meta name="doc-date" content="2026-04-23">
+  <meta name="doc-type" content="newsletter">
+  <meta name="doc-edition" content="Nº 2 — Abril 2026">
+  <meta name="doc-summary" content="Gemini 3.1, Muse Spark, Claude Design, AI Act, educação e mercado de trabalho europeu">
+  <meta name="description" content="Novidades semanais sobre IA para educadores, líderes institucionais e profissionais em Portugal e Europa. Por Marco Neves AI.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-bg: #0a0a0f;
+      --color-surface: #12121a;
+      --color-surface-2: #1a1a26;
+      --color-border: rgba(255,255,255,0.08);
+      --color-text: #e8e8f0;
+      --color-text-muted: #8888a8;
+      --color-accent: #6366f1;
+      --color-accent-warm: #f59e0b;
+      --color-accent-cool: #22d3ee;
+      --color-highlight: #a78bfa;
+      --color-green: #10b981;
+      --color-rose: #f43f5e;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--color-bg);
+      color: var(--color-text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    a { color: var(--color-accent-cool); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
+      50% { box-shadow: 0 0 0 8px rgba(245, 158, 11, 0); }
+    }
+
+    /* ===== HEADER ===== */
+    .site-header {
+      background: linear-gradient(180deg, #0d0d18 0%, var(--color-bg) 100%);
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: 32px;
+    }
+
+    .logo-container {
+      text-align: center;
+      padding: 32px 24px 20px;
+    }
+    .brand-logo {
+      max-width: 200px;
+      height: auto;
+    }
+
+    .author-contacts {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+      padding: 10px 24px;
+      background: rgba(255,255,255,0.03);
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+      flex-wrap: wrap;
+    }
+    .author-contacts a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--color-text-muted);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 20px;
+      transition: color 0.2s;
+    }
+    .author-contacts a:hover { color: var(--color-accent-cool); text-decoration: none; }
+    .author-contacts .sep {
+      width: 1px;
+      height: 18px;
+      background: var(--color-border);
+    }
+    .author-contacts svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    .publication-identity {
+      text-align: center;
+      padding: 36px 24px 8px;
+    }
+    .pub-type-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      border: 1px solid var(--color-accent);
+      padding: 4px 12px;
+      border-radius: 3px;
+    }
+    .brand-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      color: var(--color-text);
+      margin-top: 16px;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+    .brand-subtitle {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--color-text-muted);
+      margin-top: 10px;
+    }
+    .edition-line {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text-muted);
+    }
+    .edition-number { color: var(--color-highlight); font-weight: 700; }
+    .edition-sep { color: rgba(255,255,255,0.2); }
+    .header-rule {
+      height: 2px;
+      background: linear-gradient(90deg, var(--color-accent), transparent);
+      margin: 24px auto 0;
+      max-width: 800px;
+      border-radius: 2px;
+    }
+
+    /* ===== OPENING ===== */
+    .opening-wrap {
+      max-width: 800px;
+      margin: 48px auto 16px;
+      padding: 0 24px;
+      animation: fadeInUp 0.6s ease both;
+    }
+    .opening-text {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.05rem, 2vw, 1.2rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--color-text-muted);
+      line-height: 1.75;
+      border-left: 3px solid var(--color-accent);
+      padding-left: 20px;
+    }
+
+    /* ===== FEED ===== */
+    .feed {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 32px 16px 64px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .story {
+      border-radius: 12px;
+      overflow: hidden;
+      animation: fadeInUp 0.6s ease both;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      position: relative;
+    }
+    .story:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .story-inner { padding: 40px 44px; }
+
+    /* Badges */
+    .kicker {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .badge-focus {
+      display: inline-block;
+      background: var(--color-accent-warm);
+      color: #1a1000;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-left: 10px;
+      vertical-align: middle;
+      animation: pulse 2.5s infinite;
+    }
+    .story-date {
+      font-size: 13px;
+      color: var(--color-text-muted);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .story h2 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .story p {
+      font-size: 16px;
+      line-height: 1.75;
+      margin-bottom: 16px;
+      color: rgba(232,232,240,0.9);
+    }
+    .story p:last-of-type { margin-bottom: 0; }
+    .metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .metric-pill {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+    .metric-pill span {
+      display: block;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--color-accent-cool);
+      font-family: 'Fraunces', serif;
+      line-height: 1.1;
+    }
+    .source-line {
+      margin-top: 24px;
+      font-size: 13px;
+      color: var(--color-text-muted);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 14px;
+    }
+    .source-line a { color: var(--color-accent-cool); }
+
+    /* ===== LAYOUT 1: HERO DARK ===== */
+    .story.hero-dark {
+      background: linear-gradient(135deg, #0f0f1e 0%, #1a0a2e 50%, #0f0f1e 100%);
+      border: 1px solid rgba(99,102,241,0.2);
+    }
+    .story.hero-dark .numeral {
+      position: absolute;
+      top: -20px;
+      right: 24px;
+      font-family: 'Fraunces', serif;
+      font-size: 160px;
+      font-weight: 900;
+      color: rgba(99,102,241,0.06);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+    .story.hero-dark .kicker { color: var(--color-accent); }
+    .story.hero-dark h2 { color: #fff; }
+
+    /* ===== LAYOUT 2: ACCENT BORDER ===== */
+    .story.accent-border {
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      border-left: 5px solid var(--color-accent);
+    }
+    .story.accent-border .kicker { color: var(--color-highlight); }
+    .story.accent-border h2 { color: var(--color-text); }
+
+    /* ===== LAYOUT 3: WARM ALERT ===== */
+    .story.warm-alert {
+      background: linear-gradient(135deg, #1a1000 0%, #231500 60%, #1a0e00 100%);
+      border: 1px solid rgba(245,158,11,0.3);
+    }
+    .story.warm-alert .kicker { color: var(--color-accent-warm); }
+    .story.warm-alert h2 { color: #fef3c7; }
+    .story.warm-alert .metric-pill span { color: var(--color-accent-warm); }
+    .story.warm-alert .source-line { border-top-color: rgba(245,158,11,0.12); }
+
+    /* ===== LAYOUT 4: TERMINAL ===== */
+    .story.terminal {
+      background: #030f06;
+      border: 1px solid rgba(16,185,129,0.25);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .story.terminal .kicker {
+      color: var(--color-green);
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 1px;
+    }
+    .story.terminal::before {
+      content: '// REGULAÇÃO UE';
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: rgba(16,185,129,0.4);
+      padding: 14px 44px 0;
+    }
+    .story.terminal h2 {
+      font-family: 'Fraunces', serif;
+      color: #e0ffe8;
+    }
+    .story.terminal p { font-family: 'Inter', sans-serif; color: rgba(220,255,230,0.85); }
+    .story.terminal .metric-pill span { color: var(--color-green); }
+    .story.terminal .source-line { border-top-color: rgba(16,185,129,0.1); }
+
+    /* ===== LAYOUT 5: ACADEMIC DROP-CAP ===== */
+    .story.academic {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-top: 3px solid var(--color-highlight);
+    }
+    .story.academic .kicker { color: var(--color-highlight); }
+    .story.academic h2 { color: var(--color-text); }
+    .story.academic p:first-of-type::first-letter {
+      font-family: 'Fraunces', serif;
+      font-size: 4rem;
+      font-weight: 900;
+      float: left;
+      line-height: 0.8;
+      margin-right: 8px;
+      margin-top: 6px;
+      color: var(--color-highlight);
+    }
+    .story.academic .metric-pill span { color: var(--color-highlight); }
+
+    /* ===== LAYOUT 6: STAT FEATURED ===== */
+    .story.stat-featured {
+      background: linear-gradient(135deg, #0a1520 0%, #0d1f30 100%);
+      border: 1px solid rgba(34,211,238,0.2);
+    }
+    .story.stat-featured .big-stat {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(4rem, 10vw, 7rem);
+      font-weight: 900;
+      color: var(--color-accent-cool);
+      line-height: 1;
+      margin: 16px 0 8px;
+      letter-spacing: -0.04em;
+    }
+    .story.stat-featured .big-stat-label {
+      font-size: 14px;
+      color: rgba(34,211,238,0.6);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+    .story.stat-featured .kicker { color: var(--color-accent-cool); }
+    .story.stat-featured h2 { color: #e0faff; }
+    .story.stat-featured .metric-pill span { color: var(--color-accent-cool); }
+
+    /* ===== LAYOUT 7: MIDNIGHT BLUE ===== */
+    .story.midnight-blue {
+      background: linear-gradient(135deg, #060c1a 0%, #0a1228 50%, #0d1535 100%);
+      border: 1px solid rgba(99,102,241,0.15);
+    }
+    .story.midnight-blue .kicker { color: var(--color-accent-cool); }
+    .story.midnight-blue h2 { color: #c7d8ff; }
+    .story.midnight-blue .metric-pill span { color: var(--color-accent-cool); }
+
+    /* ===== LAYOUT 8: ROSE ALERT ===== */
+    .story.rose-alert {
+      background: linear-gradient(135deg, #130408 0%, #1e0510 100%);
+      border: 1px solid rgba(244,63,94,0.25);
+    }
+    .story.rose-alert .kicker { color: var(--color-rose); }
+    .story.rose-alert h2 { color: #ffe0e8; }
+    .story.rose-alert .stamp {
+      position: absolute;
+      top: 32px;
+      right: 36px;
+      border: 3px solid rgba(244,63,94,0.5);
+      color: rgba(244,63,94,0.5);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      transform: rotate(-3deg);
+      border-radius: 4px;
+      display: none;
+    }
+    @media (min-width: 600px) { .story.rose-alert .stamp { display: block; } }
+    .story.rose-alert .metric-pill span { color: var(--color-rose); }
+    .story.rose-alert .source-line { border-top-color: rgba(244,63,94,0.1); }
+
+    /* ===== LAYOUT 9: SURFACE ELEVATED ===== */
+    .story.elevated {
+      background: var(--color-surface-2);
+      border: 1px solid rgba(167,139,250,0.2);
+      border-bottom: 3px solid var(--color-highlight);
+    }
+    .story.elevated .kicker { color: var(--color-highlight); }
+    .story.elevated h2 { color: var(--color-text); }
+    .story.elevated .metric-pill span { color: var(--color-highlight); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      text-align: center;
+      padding: 48px 24px 36px;
+    }
+    .footer-logo {
+      max-width: 120px;
+      height: auto;
+      margin-bottom: 20px;
+      opacity: 0.8;
+    }
+    footer p {
+      color: var(--color-text-muted);
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 6px;
+    }
+    footer p.footer-desc {
+      max-width: 520px;
+      margin: 16px auto;
+      font-size: 14px;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px 24px;
+      margin: 20px 0 16px;
+    }
+    .footer-links a {
+      font-size: 14px;
+      color: var(--color-accent-cool);
+      font-weight: 500;
+    }
+    .copyright {
+      font-size: 13px;
+      color: rgba(255,255,255,0.2);
+      margin-top: 16px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .story-inner { padding: 28px 24px; }
+      .story.hero-dark .numeral { font-size: 100px; }
+      .author-contacts { flex-direction: column; gap: 4px; }
+      .author-contacts .sep { display: none; }
+      .feed { padding: 24px 8px 48px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="logo-container">
+    <img src="https://mbrasneves.github.io/assets/logo.png"
+         alt="Marco Neves AI — Decifra a IA: Lidera o Amanhã"
+         class="brand-logo"
+         onerror="this.style.display='none'">
+  </div>
+
+  <div class="author-contacts">
+    <a href="https://www.linkedin.com/in/mbrasneves/" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.554v-5.57c0-1.328-.027-3.037-1.852-3.037-1.854 0-2.137 1.446-2.137 2.94v5.667H9.352V9h3.414v1.561h.049c.476-.9 1.636-1.85 3.368-1.85 3.601 0 4.268 2.37 4.268 5.455v6.284zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn
+    </a>
+    <div class="sep"></div>
+    <a href="mailto:mbrasneves@gmail.com">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      mbrasneves@gmail.com
+    </a>
+    <div class="sep"></div>
+    <a href="https://web.facebook.com/marco.bras.neves" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      Facebook
+    </a>
+  </div>
+
+  <div class="publication-identity">
+    <span class="pub-type-badge">NEWSLETTER SEMANAL</span>
+    <h1 class="brand-title">Decifra a IA: Lidera o Amanhã</h1>
+    <p class="brand-subtitle">por <strong>Marco Neves AI</strong> — Consultoria e Formação em Inteligência Artificial</p>
+    <div class="edition-line">
+      <span class="edition-number">Edição Nº 2</span>
+      <span class="edition-sep">·</span>
+      <span class="edition-date">23 de Abril de 2026</span>
+      <span class="edition-sep">·</span>
+      <span class="edition-read">10 histórias · ~12 min de leitura</span>
+    </div>
+  </div>
+  <div class="header-rule"></div>
+</header>
+
+<!-- ABERTURA EDITORIAL -->
+<div class="opening-wrap">
+  <p class="opening-text">Esta semana, a sensação que fica é a de uma corrida que nunca desacelera. A Google lança Gemini 3.1. A Meta apresenta o Muse Spark. A Anthropic abre o Claude Design ao público e lança o Opus 4.7. Em paralelo, o Relatório Stanford AI Index confirma o que muitos intuíam: a adopção ultrapassa a capacidade de resposta das instituições, especialmente das escolas. E enquanto isso, o prazo crítico do AI Act europeu aproxima-se a passos largos. Há muito para interpretar — e pouco tempo para ficar parado.</p>
+</div>
+
+<!-- FEED DE HISTÓRIAS -->
+<div class="feed">
+
+  <!-- HISTÓRIA 1 — HERO DARK — Gemini 3.1 -->
+  <article class="story hero-dark" style="animation-delay: 0.05s">
+    <div class="numeral">01</div>
+    <div class="story-inner">
+      <span class="kicker">FERRAMENTAS <span class="badge-focus">★ EM FOCO</span></span>
+      <span class="story-date">15 de Abril de 2026</span>
+      <h2>Gemini 3.1 Pro muda as regras do raciocínio: 77% num benchmark que a maioria dos modelos nem tentava</h2>
+      <p>A Google lançou o Gemini 3.1 Pro num momento em que os benchmarks convencionais já não distinguem os melhores modelos entre si. A escolha de destacar o ARC-AGI-2 como referência principal é reveladora: trata-se de um conjunto de testes que avalia a capacidade de resolver padrões lógicos completamente novos, resistentes a memorização. Atingir 77,1% — mais do dobro da versão anterior — é um salto que muda o tom da conversa sobre o que estes sistemas conseguem realmente fazer.</p>
+      <p>Para utilizadores práticos, as mudanças mais imediatas são outras. O contexto expandido permite processar documentos de 900 páginas, 8,4 horas de áudio ou uma hora de vídeo numa única chamada. O limite de saída subiu para 65 536 tokens, eliminando um constrangimento real em projectos de síntese ou geração de conteúdo longo. O Gemini 3.1 Flash TTS traz ainda síntese de voz expressiva em mais de 70 idiomas, com controlo de estilo e marca de água SynthID integrada.</p>
+      <p>O que isto significa para organizações educativas e de formação é directo: ferramentas como NotebookLM e Google Vids vão receber estas capacidades. A análise de documentos curriculares extensos, a síntese de material de apoio ou a produção de conteúdo áudio para formação a distância passam a ter uma base técnica consideravelmente mais robusta do que há três meses.</p>
+      <div class="metrics">
+        <div class="metric-pill"><span>77,1%</span>ARC-AGI-2</div>
+        <div class="metric-pill"><span>65 536</span>tokens de saída</div>
+        <div class="metric-pill"><span>70+</span>idiomas no TTS</div>
+      </div>
+      <div class="source-line">Fonte: <a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-1-pro/" target="_blank" rel="noopener">Google Blog — Gemini 3.1 Pro</a> · <a href="https://www.marktechpost.com/2026/04/15/google-ai-launches-gemini-3-1-flash-tts-a-new-benchmark-in-expressive-and-controllable-ai-voice/" target="_blank" rel="noopener">MarkTechPost — Flash TTS</a></div>
+    </div>
+  </article>
+
+  <!-- HISTÓRIA 2 — WARM ALERT — Claude Design + Opus 4.7 -->
+  <article class="story warm-alert" style="animation-delay: 0.1s">
+    <div class="story-inner">
+      <span class="kicker">FERRAMENTAS <span class="badge-focus">★ EM FOCO</span></span>
+      <span class="story-date">17 de Abril de 2026</span>
+      <h2>A Anthropic lança Claude Design e Opus 4.7: criar visuais e agir de forma autónoma passam a fazer parte do mesmo ecossistema</h2>
+      <p>A Anthropic deu dois passos simultâneos que, analisados em conjunto, revelam uma direcção clara. O Claude Opus 4.7 é a versão mais capaz actualmente disponível ao público em geral, com reforços específicos em engenharia de software, visão computacional e trabalho agentivo de longa duração. O Claude Design é um produto experimental que permite criar protótipos, apresentações e documentos de uma página directamente a partir de linguagem natural, disponível em preview para subscritores Pro, Max, Team e Enterprise.</p>
+      <p>Para quem usa Claude no contexto de consultoria ou formação, a combinação é relevante. O Claude Design reduz o ciclo entre intenção e artefacto visual: uma estrutura de workshop, um resumo executivo, uma proposta de projecto deixam de exigir um ciclo de criação separado. A adição dos Claude Managed Agents em beta público é igualmente importante — permite delegar sequências de tarefas ao modelo com sandboxing seguro e controlo por streaming, o que abre caminho a automatizações mais robustas do que as pipelines manuais actuais.</p>
+      <p>O lançamento do Claude Mythos Preview na mesma semana — um modelo especializado em segurança informática — confirma que a Anthropic está a segmentar o portefólio por domínio de aplicação, não apenas por escala. É uma mudança de estratégia que terá implicações na forma como organizações escolhem e integram modelos diferentes para fins diferentes.</p>
+      <div class="metrics">
+        <div class="metric-pill"><span>Opus 4.7</span>Modelo topo disponível</div>
+        <div class="metric-pill"><span>Beta</span>Managed Agents</div>
+      </div>
+      <div class="source-line">Fonte: <a href="https://techcrunch.com/2026/04/17/anthropic-launches-claude-design-a-new-product-for-creating-quick-visuals/" target="_blank" rel="noopener">TechCrunch — Claude Design</a> · <a href="https://releasebot.io/updates/anthropic/claude" target="_blank" rel="noopener">Releasebot — Anthropic Release Notes</a></div>
+    </div>
+  </article>
+
+  <!-- HISTÓRIA 3 — ACADEMIC — Stanford AI Index 2026 -->
+  <article class="story academic" style="animation-delay: 0.15s">
+    <div class="story-inner">
+      <span class="kicker">INVESTIGAÇÃO <span class="badge-focus">★ EM FOCO</span></span>
+      <span class="story-date">Abril de 2026</span>
+      <h2>Relatório Stanford AI Index 2026: a adopção acelerou, a capacidade institucional ficou para trás</h2>
+      <p>Entre 50% e 84% dos alunos do ensino secundário nos Estados Unidos usam IA para trabalhos escolares. No ensino superior britânico, o número chega aos 95%. Estes não são dados projectados — são medições do momento presente. O que o Stanford AI Index 2026 documenta com particular nitidez é o gap: a adopção por parte dos alunos avança a uma velocidade que as políticas das escolas não acompanham. Apenas metade das escolas de ensino médio e secundário têm qualquer política de IA em vigor, e só 6% dos professores descrevem essas políticas como claras.</p>
+      <p>O relatório também sinaliza uma mudança no mercado de trabalho que já não é prospectiva: as funções que envolvem tarefas estruturadas e repetíveis mostram sinais de redução de contratação, enquanto as que exigem supervisão, raciocínio complexo e capacidade de trabalhar com sistemas automatizados ganham peso. A disrupção no emprego pelos jovens trabalhadores é descrita não como risco futuro, mas como realidade em curso. Os modelos de topo da Anthropic e da Google ultrapassam agora os 50% no benchmark Humanity's Last Exam, que mede capacidades académicas ao nível de especialistas.</p>
+      <p>Para quem forma professores e lidera organizações educativas, a leitura prática deste relatório é clara: o problema não é a tecnologia, é a ausência de quadros de referência que ajudem os profissionais a decidir quando, como e com que limites usá-la. O relatório não fornece esses quadros — mas fornece os dados que justificam a urgência de os construir.</p>
+      <div class="metrics">
+        <div class="metric-pill"><span>50–84%</span>alunos secundário (EUA) usam IA</div>
+        <div class="metric-pill"><span>6%</span>professores com política de IA clara</div>
+        <div class="metric-pill"><span>+50%</span>Humanity's Last Exam (Claude, Gemini)</div>
+      </div>
+      <div class="source-line">Fonte: <a href="https://hai.stanford.edu/ai-index/2026-ai-index-report" target="_blank" rel="noopener">Stanford HAI — AI Index 2026</a> · <a href="https://www.edtechinnovationhub.com/news/ai-adoption-accelerates-as-stanford-report-highlights-pressure-on-education-jobs-and-infrastructure" target="_blank" rel="noopener">EdTech Innovation Hub</a></div>
+    </div>
+  </article>
+
+  <!-- HISTÓRIA 4 — MIDNIGHT BLUE — Mercado de trabalho PT/EU -->
+  <article class="story midnight-blue" style="animation-delay: 0.2s">
+    <div class="story-inner">
+      <span class="kicker">MERCADO DE TRABALHO <span class="badge-focus">★ EM FOCO</span></span>
+      <span class="story-date">Março–Abril de 2026</span>
+      <h2>Portugal: postos de IA crescem 20% ao ano, mas o mercado de trabalho europeu não é uma história simples</h2>
+      <p>Os dados disponíveis sobre Portugal para 2026 têm uma nuance que é fácil de perder nas manchetes optimistas. É verdade que a procura de perfis de IA cresceu 20% em termos homólogos, que os architects de cloud híbrida chegam a pacotes superiores a 105 mil euros em Lisboa, e que o saldo previsto de contratação para o primeiro trimestre era positivo em 36%. Mas o Banco Central Europeu e o EIB documentam um padrão diferente no resto do mercado: o crescimento do emprego no conjunto da UE está a abrandar, as vagas de nível de entrada estão a contrair-se em vários sectores, e os jovens que procuram o primeiro emprego enfrentam um mercado crescentemente mediado por sistemas automatizados de recrutamento.</p>
+      <p>O que os dados europeus mostram de forma consistente é que a IA aumenta a produtividade das empresas que a adoptam — em média 4% segundo o EIB — mas esse ganho não se traduz automaticamente em mais postos de trabalho. Traduz-se em mais produção com os mesmos recursos, ou em contratação selectiva de perfis altamente qualificados. As empresas europeias que usam IA estão, em média, a contratar mais do que as que não usam — mas a composição dessa contratação mudou: menos funções de suporte rotineiro, mais funções de desenvolvimento, supervisão e integração de sistemas.</p>
+      <p>Para organizações educativas e de formação em Portugal, o sinal prático é este: a literacia em IA não é uma competência diferenciadora para uma minoria de alunos tecnicamente avançados. É o patamar de base que o mercado vai exigir a trabalhadores de praticamente todos os sectores ao longo desta década.</p>
+      <div class="metrics">
+        <div class="metric-pill"><span>+20%</span>procura de perfis IA em PT (YoY)</div>
+        <div class="metric-pill"><span>+4%</span>produtividade média nas empresas UE com IA</div>
+        <div class="metric-pill"><span>+36%</span>saldo de contratação previsto PT Q1</div>
+      </div>
+      <div class="source-line">Fonte: <a href="https://theportugalpost.com/posts/portugals-tech-hiring-in-2026-shifts-to-ai-expertise-and-stability" target="_blank" rel="noopener">The Portugal Post</a> · <a href="https://www.eib.org/en/publications/20250383-economics-working-paper-2026-02" target="_blank" rel="noopener">EIB Working Paper 2026/02</a> · <a href="https://www.ecb.europa.eu/press/blog/date/2026/html/ecb.blog20260304~d9e34fc95f.en.html" target="_blank" rel="noopener">BCE Blog — Março 2026</a></div>
+    </div>
+  </article>
+
+  <!-- HISTÓRIA 5 — TERMINAL — EU AI Act -->
+  <article class="story terminal" style="animation-delay: 0.25s">
+    <div class="story-inner">
+      <span class="kicker">REGULAÇÃO</span>
+      <span class="story-date">Abril de 2026</span>
+      <h2>AI Act: a contagem decrescente para Agosto de 2026 começou — e metade dos Estados-Membros ainda não nomeou autoridades competentes</h2>
+      <p>A 2 de Agosto de 2026 entram em vigor os requisitos para sistemas de IA de alto risco classificados no Anexo III do AI Act. A partir dessa data, uma não-conformidade pode implicar coimas de 15 milhões de euros ou 3% do volume de negócios mundial, o que for mais elevado. O mercado corporativo europeu já incorporou este calendário nas suas negociações: a conformidade com o AI Act passou a ser uma variável nas due diligences de fusões e aquisições, não apenas um item de checklist regulatório.</p>
+      <p>O que os dados de Março de 2026 revelam é preocupante: apenas 8 dos 27 Estados-Membros tinham designado os seus pontos de contacto únicos junto da Comissão Europeia. Do ponto de vista da fiscalização, isto significa que a arquitectura de supervisão prevista na lei ainda está incompleta. A Comissão lançou em paralelo consultas sobre as disposições de direitos de autor do AI Act e sobre os sandboxes regulatórios, o que sinaliza que algumas questões operacionais permanecem em aberto.</p>
+      <p>Para consultores institucionais e líderes de organizações que usam ferramentas de IA em processos que envolvem decisões sobre pessoas — classificação de candidatos, apoio ao diagnóstico, avaliação de desempenho — o momento de verificar a classificação de risco dessas ferramentas e documentar os processos de supervisão humana é agora, não em Julho.</p>
+      <div class="metrics">
+        <div class="metric-pill"><span>2 AGO</span>Deadline Anexo III alto risco</div>
+        <div class="metric-pill"><span>8/27</span>Estados-Membros com autoridade designada</div>
+        <div class="metric-pill"><span>15M€</span>Coima máxima não-conformidade</div>
+      </div>
+      <div class="source-line">Fonte: <a href="https://artificialintelligenceact.eu/implementation-timeline/" target="_blank" rel="noopener">EU AI Act — Timeline</a> · <a href="https://www.legalnodes.com/article/eu-ai-act-2026-updates-compliance-requirements-and-business-risks" target="_blank" rel="noopener">LegalNodes — Compliance 2026</a> · <a href="https://epthinktank.eu/2026/03/18/enforcement-of-the-ai-act/" target="_blank" rel="noopener">European Parliament Think Tank</a></div>
+    </div>
+  </article>
+
+  <!-- HISTÓRIA 6 — HERO DARK — Meta Muse Spark -->
+  <article class="story hero-dark" style="animation-delay: 0.3s">
+    <div class="numeral">06</div>
+    <div class="story-inner">
+      <span class="kicker">MODELOS</span>
+      <span class="story-date">8 de Abril de 2026</span>
+      <h2>Meta lança Muse Spark: raciocínio multimodal em paralelo e a ambição de chegar ao WhatsApp de mil milhões de pessoas</h2>
+      <p>O Muse Spark é o primeiro modelo desenvolvido pelos Meta Superintelligence Labs, a nova estrutura criada após a chegada de Alexandr Wang da Scale AI. É nativamente multimodal — aceita texto, voz e imagem — e funciona em três modos de raciocínio: Instant para consultas rápidas, Thinking para tarefas que exigem raciocínio passo a passo, e Contemplating, que orquestra múltiplos agentes em paralelo para problemas complexos. A capacidade de lançar subagentes simultâneos — um para o itinerário, outro para comparar destinos, outro para pesquisar actividades — é o salto mais significativo em relação aos modelos anteriores da empresa.</p>
+      <p>O que diferencia o Muse Spark dos competidores directos não é apenas o desempenho nos benchmarks, mas a escala de distribuição. A integração prevista com WhatsApp, Instagram, Facebook, Messenger e os óculos Meta significa que este modelo vai chegar a utilizadores que nunca instalaram uma aplicação de IA dedicada, em contextos informais do quotidiano. Em Portugal, onde o WhatsApp é o canal de comunicação dominante em múltiplos contextos profissionais e institucionais, esta distribuição tem uma relevância particular.</p>
+      <p>Para educadores e formadores, a questão que o Muse Spark coloca não é técnica — é contextual. Quando um modelo desta capacidade fica disponível no canal onde os alunos já estão, a fronteira entre uso escolar e uso pessoal dissolve-se ainda mais. A resposta não pode ser a proibição; tem de ser a literacia sobre como, quando e com que intenção se usa.</p>
+      <div class="metrics">
+        <div class="metric-pill"><span>3 modos</span>Instant / Thinking / Contemplating</div>
+        <div class="metric-pill"><span>Multi-agente</span>Subagentes em paralelo</div>
+      </div>
+      <div class="source-line">Fonte: <a href="https://ai.meta.com/blog/introducing-muse-spark-msl/" target="_blank" rel="noopener">Meta AI — Introducing Muse Spark</a> · <a href="https://techcrunch.com/2026/04/08/meta-debuts-the-muse-spark-model-in-a-ground-up-overhaul-of-its-ai/" target="_blank" rel="noopener">TechCrunch</a></div>
+    </div>
+  </article>
+
+  <!-- HISTÓRIA 7 — ACADEMIC — IA na educação: literacia e politicas -->
+  <article class="story academic" style="animation-delay: 0.35s">
+    <div class="story-inner">
+      <span class="kicker">EDUCAÇÃO <span class="badge-focus">★ EM FOCO</span></span>
+      <span class="story-date">Abril de 2026</span>
+      <h2>A escola joga ao "apanha" com a literacia mediática enquanto a IA avança: 61% dos professores do ensino básico dizem que os alunos não distinguem conteúdo gerado por IA</h2>
+      <p>Um inquérito da EdWeek Research Center, conduzido entre Fevereiro e Março de 2026 junto de uma amostra representativa nacional nos EUA, revela um dado que qualquer formador de professores deveria tomar como ponto de partida: 61% dos docentes do ensino básico afirmam que os seus alunos têm "muita dificuldade" em distinguir conteúdo gerado por IA de conteúdo humano. Esta incapacidade não é uma falha individual dos alunos — é uma lacuna de formação que as escolas ainda não endereçaram de forma sistemática.</p>
+      <p>A resposta política começa a ganhar contornos concretos. As Escolas Públicas de Boston vão tornar a literacia em IA uma exigência para a conclusão do ensino secundário, com implementação prevista para Setembro de 2026 — o primeiro grande sistema urbano americano a dar este passo. Em paralelo, o Departamento de Educação de Nova Iorque publicou orientações que permitem o uso de IA por professores em tarefas de planeamento e comunicação, mas proíbem explicitamente que o modelo atribua notas, tome decisões disciplinares ou processe dados biométricos sem supervisão rigorosa.</p>
+      <p>O que estes movimentos têm em comum é o reconhecimento de que a literacia em IA não é uma disciplina optativa de tecnologia — é competência transversal com implicações cívicas. Para organizações de formação de professores em Portugal e na Europa, a questão prática é esta: os programas de formação inicial e contínua estão a incorporar esta dimensão de forma estruturada, ou continuam a tratar a IA como um tema de actualidade que se aborda num módulo isolado?</p>
+      <div class="metrics">
+        <div class="metric-pill"><span>61%</span>docentes: alunos não distinguem conteúdo IA</div>
+        <div class="metric-pill"><span>Set. 2026</span>Boston: literacia IA obrigatória</div>
+      </div>
+      <div class="source-line">Fonte: <a href="https://www.edweek.org/technology/schools-play-game-of-media-literacy-catch-up-as-ai-use-rises/2026/04" target="_blank" rel="noopener">Education Week</a> · <a href="https://www.aimagicx.com/blog/ai-education-teachers-perspective-classroom-2026" target="_blank" rel="noopener">AI Magicx — Teachers 2026</a></div>
+    </div>
+  </article>
+
+  <!-- HISTÓRIA 8 — STAT FEATURED — IA na Saúde -->
+  <article class="story stat-featured" style="animation-delay: 0.4s">
+    <div class="story-inner">
+      <span class="kicker">SAÚDE</span>
+      <span class="story-date">Abril de 2026</span>
+      <div class="big-stat">61%</div>
+      <div class="big-stat-label">empresas de medtech a usar IA em imagiologia médica</div>
+      <h2>IA na saúde: da imagiologia ao diagnóstico cardíaco, os resultados reais chegam antes dos prognósticos mais optimistas</h2>
+      <p>Um inquérito da NVIDIA a organizações do sector de saúde revela que 61% das empresas de tecnologia médica já utilizam IA em imagiologia, e que 57% das farmacêuticas e biotecnológicas reportam o uso de IA em descoberta de fármacos. Estes não são projectos-piloto: são ferramentas integradas em fluxos de trabalho clínicos. O modelo EchoNext, treinado em mais de um milhão de electrocardiogramas e publicado na Nature, superou cardiologistas humanos na detecção de doenças cardíacas a partir de ECGs.</p>
+      <p>A UnitedHealth Group anunciou um investimento de 3 mil milhões de dólares em IA, com aplicação directa em auditoria de reclamações médicas, detecção de fraude e documentação clínica. É um número que ilustra a diferença entre organizações que usam IA como ferramenta de produtividade e as que a estão a incorporar como infraestrutura central dos seus processos. A FDA, por sua vez, está a redefinir o que constitui um "avanço" em dispositivos médicos com IA: já não basta melhorar a capacidade de um médico — os algoritmos que recebem designação de breakthrough são os que resolvem problemas que os médicos simplesmente não conseguem resolver, como detectar múltiplos cancros a partir de uma única imagem.</p>
+      <p>Para o contexto educativo, o que estes desenvolvimentos sinalizam é uma pressão crescente sobre a formação de profissionais de saúde: compreender as capacidades e os limites dos sistemas de IA clínica passa a ser uma competência profissional básica, não uma especialização opcional. Organizações de ensino superior na área da saúde que ainda não actualizaram os seus currículos nesta direcção estão já em atraso.</p>
+      <div class="metrics">
+        <div class="metric-pill"><span>3 mil M$</span>investimento UnitedHealth em IA</div>
+        <div class="metric-pill"><span>1M+</span>ECGs no treino do EchoNext</div>
+      </div>
+      <div class="source-line">Fonte: <a href="https://blogs.nvidia.com/blog/ai-in-healthcare-survey-2026/" target="_blank" rel="noopener">NVIDIA — Healthcare Survey 2026</a> · <a href="https://www.statnews.com/2026/04/06/unitedhealth-group-massive-artificial-intelligence-push-patient-implications/" target="_blank" rel="noopener">STAT News — UnitedHealth</a></div>
+    </div>
+  </article>
+
+  <!-- HISTÓRIA 9 — ROSE ALERT — Fraude com IA -->
+  <article class="story rose-alert" style="animation-delay: 0.45s">
+    <div class="stamp">ALERTA</div>
+    <div class="story-inner">
+      <span class="kicker">SEGURANÇA</span>
+      <span class="story-date">21 de Abril de 2026</span>
+      <h2>Burlas potenciadas por IA: o MIT Technology Review documenta como as ferramentas generativas tornaram o cibercrime mais acessível e mais eficaz</h2>
+      <p>A edição de Abril do MIT Technology Review dedica a sua cobertura principal à forma como as ferramentas de IA generativa estão a transformar o ecossistema do cibercrime. A análise é directa: os criminosos usam IA para compor emails de phishing com gramática impecável, para criar vídeos deepfake hiperrealistas de executivos ou familiares, e para modificar código malicioso de forma a iludir os sistemas de detecção. O que mudou não é a existência destes ataques — é o custo e a barreira técnica para os lançar, que desceram drasticamente.</p>
+      <p>O cenário mais preocupante para organizações educativas e institucionais não é o ataque técnico sofisticado — é a engenharia social. Uma mensagem que aparenta ser do director de uma escola, com tom e vocabulário adequados ao contexto, a solicitar uma transferência ou uma credencial de acesso, é hoje generável por qualquer pessoa com acesso a um modelo de linguagem e alguma informação pública. As organizações que ainda não actualizaram os seus procedimentos de verificação para este contexto estão numa posição vulnerável.</p>
+      <p>A resposta adequada não passa por ferramentas de detecção — que estão permanentemente em desvantagem face à velocidade de adaptação dos modelos generativos. Passa por processos organizacionais: verificação em dois passos para pedidos sensíveis, formação regular sobre os vectores de ataque actuais, e uma cultura institucional que normalize o "telefona antes de transferir". Para quem forma professores e líderes institucionais, este tema merece um lugar explícito nos programas de literacia digital.</p>
+      <div class="source-line">Fonte: <a href="https://www.technologyreview.com/2026/04/21/1135647/supercharged-scams-ai-artificial-intelligence/" target="_blank" rel="noopener">MIT Technology Review — Supercharged Scams</a></div>
+    </div>
+  </article>
+
+  <!-- HISTÓRIA 10 — ELEVATED — MIT 10 Things in AI -->
+  <article class="story elevated" style="animation-delay: 0.5s">
+    <div class="story-inner">
+      <span class="kicker">TENDÊNCIAS</span>
+      <span class="story-date">21 de Abril de 2026</span>
+      <h2>MIT Technology Review: dez coisas que definem a IA neste momento — e o que elas dizem sobre onde estamos de facto</h2>
+      <p>A análise do MIT Technology Review sobre o estado actual da IA em dez dimensões é um exercício de calibração útil num momento em que a cobertura mediática oscila entre o entusiasmo excessivo e o ceticismo reactivo. O que emerge da leitura conjunta é uma imagem de maturidade desigual: algumas capacidades chegaram antes da capacidade de as integrar de forma segura e equitativa, e os sistemas de supervisão — tanto regulatórios como organizacionais — estão sistematicamente atrasados face ao ritmo de adopção.</p>
+      <p>Dois eixos merecem atenção particular. O primeiro é a transição para fluxos de trabalho agentivos: em 2026, todos os principais lançamentos de modelos enfatizam capacidades de agência — a capacidade de completar sequências de tarefas com supervisão humana mínima. O segundo é a orquestração multi-modelo: as implementações mais eficazes não usam um único modelo para tudo, mas roteiam pedidos diferentes para modelos diferentes em função do que a tarefa exige, reservando os modelos de fronteira para as tarefas que genuinamente os justificam. Esta arquitectura tem implicações directas para organizações que estão a desenhar sistemas de IA internos.</p>
+      <p>A NASA concluiu as primeiras missões do rover Perseverance planeadas inteiramente por IA — usando modelos de visão da Anthropic para analisar imagens orbitais e planear trajectos sem intervenção humana directa na tarefa de planeamento, algo que operadores humanos faziam manualmente há 28 anos. É um caso de uso distante do contexto educativo, mas é um marcador útil: quando uma tarefa de especialista com 28 anos de história passa a ser delegável a um sistema autónomo, a questão sobre quais as competências que permanecem genuinamente humanas torna-se mais urgente, não menos.</p>
+      <div class="metrics">
+        <div class="metric-pill"><span>Agentivo</span>Paradigma dominante em 2026</div>
+        <div class="metric-pill"><span>Multi-modelo</span>Arquitectura das implementações eficazes</div>
+      </div>
+      <div class="source-line">Fonte: <a href="https://www.technologyreview.com/2026/04/21/1135643/10-ai-artificial-intelligence-trends-technologies-research-2026/" target="_blank" rel="noopener">MIT Technology Review — 10 Things That Matter in AI</a> · <a href="https://blogs.nvidia.com/blog/national-robotics-week-2026/" target="_blank" rel="noopener">NVIDIA Blog — NASA Perseverance</a></div>
+    </div>
+  </article>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <img src="https://mbrasneves.github.io/assets/logo.png"
+       class="footer-logo"
+       alt="Marco Neves AI"
+       onerror="this.style.display='none'">
+  <p><strong>Marco Neves AI</strong> — Consultoria e Formação em Inteligência Artificial</p>
+  <p>Leiria, Portugal</p>
+  <p class="footer-desc">"Decifra a IA: Lidera o Amanhã" é uma newsletter semanal sobre IA com foco em educação, organizações e mercado de trabalho em Portugal e na Europa.</p>
+  <div class="footer-links">
+    <a href="https://www.linkedin.com/in/mbrasneves/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="mailto:mbrasneves@gmail.com">mbrasneves@gmail.com</a>
+    <a href="https://web.facebook.com/marco.bras.neves" target="_blank" rel="noopener">Facebook</a>
+    <a href="https://mbrasneves.github.io/novidades-ia/" target="_blank" rel="noopener">Todas as edições</a>
+  </div>
+  <p class="copyright">© 2026 Marco Neves AI</p>
+</footer>
+
+</body>
+</html>
