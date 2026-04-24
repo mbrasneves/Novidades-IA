@@ -1,1 +1,512 @@
+#!/usr/bin/env python3
+"""
+Gera o index.html do repositório Novidades-IA automaticamente.
+Lê todos os ficheiros newsletter-*.html, extrai os meta tags de indexação
+e constrói a página principal com os cards de todas as edições.
+"""
+
+import os
+import re
+from pathlib import Path
+from datetime import datetime
+
+try:
+    from bs4 import BeautifulSoup
+    USE_BS4 = True
+except ImportError:
+    USE_BS4 = False
+
+
+def extract_meta(html_content, name):
+    """Extrai o valor de um meta tag pelo atributo name."""
+    if USE_BS4:
+        soup = BeautifulSoup(html_content, 'html.parser')
+        tag = soup.find('meta', attrs={'name': name})
+        return tag['content'].strip() if tag and tag.get('content') else ''
+    else:
+        pattern = rf'<meta\s+name=["\']?{re.escape(name)}["\']?\s+content=["\']([^"\']*)["\']'
+        match = re.search(pattern, html_content, re.IGNORECASE)
+        if not match:
+            pattern = rf'<meta\s+content=["\']([^"\']*)["\']?\s+name=["\']?{re.escape(name)}["\']?'
+            match = re.search(pattern, html_content, re.IGNORECASE)
+        return match.group(1).strip() if match else ''
+
+
+def format_date_pt(date_str):
+    """Converte AAAA-MM-DD para DD de mês de AAAA em português."""
+    months = {
+        1: 'janeiro', 2: 'fevereiro', 3: 'março', 4: 'abril',
+        5: 'maio', 6: 'junho', 7: 'julho', 8: 'agosto',
+        9: 'setembro', 10: 'outubro', 11: 'novembro', 12: 'dezembro'
+    }
+    try:
+        d = datetime.strptime(date_str, '%Y-%m-%d')
+        return f"{d.day} de {months[d.month]} de {d.year}"
+    except Exception:
+        return date_str
+
+
+def collect_editions():
+    """Recolhe todos os ficheiros newsletter-*.html e extrai os seus metadados."""
+    editions = []
+    for path in sorted(Path('.').glob('newsletter-*.html'), reverse=True):
+        try:
+            content = path.read_text(encoding='utf-8')
+        except Exception:
+            continue
+
+        title   = extract_meta(content, 'doc-title')
+        date_raw= extract_meta(content, 'doc-date')
+        edition = extract_meta(content, 'doc-edition')
+        summary = extract_meta(content, 'doc-summary')
+
+        if not title:
+            title = path.stem.replace('-', ' ').title()
+
+        editions.append({
+            'file':     path.name,
+            'title':    title,
+            'date_raw': date_raw,
+            'date_pt':  format_date_pt(date_raw) if date_raw else '',
+            'edition':  edition,
+            'summary':  summary,
+        })
+
+    return editions
+
+
+def build_card(e, index):
+    """Gera o HTML de um card de edição da newsletter."""
+    edition_badge = f'<span class="edition-badge">{e["edition"]}</span>' if e['edition'] else ''
+    summary_html  = f'<p class="card-summary">{e["summary"]}</p>' if e['summary'] else ''
+    date_html     = f'<span class="card-date">{e["date_pt"]}</span>' if e['date_pt'] else ''
+    is_latest     = ' card-latest' if index == 0 else ''
+
+    latest_tag = '<span class="latest-tag">Última edição</span>' if index == 0 else ''
+
+    return f'''
+    <article class="newsletter-card{is_latest}">
+      <div class="card-accent-bar"></div>
+      <div class="card-body">
+        <div class="card-meta">
+          {latest_tag}
+          {edition_badge}
+          {date_html}
+        </div>
+        <h2 class="card-title">
+          <a href="{e['file']}">{e['title']}</a>
+        </h2>
+        {summary_html}
+        <a href="{e['file']}" class="card-cta">Ler esta edição <span aria-hidden="true">→</span></a>
+      </div>
+    </article>'''
+
+
+def build_index(editions):
+    """Constrói o HTML completo da página principal."""
+    total = len(editions)
+    cards_html = '\n'.join(build_card(e, i) for i, e in enumerate(editions))
+
+    empty_html = ''
+    if total == 0:
+        empty_html = '<p class="empty-state">Ainda não existem edições publicadas.</p>'
+
+    now = datetime.now().strftime('%d/%m/%Y às %H:%M')
+
+    return f'''<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Decifra a IA: Lidera o Amanhã — Marco Neves AI</title>
+  <meta name="description" content="Newsletter semanal sobre inteligência artificial com foco em educação, organizações e mercado de trabalho em Portugal e na Europa. Por Marco Neves AI.">
+  <meta name="author" content="Marco Neves AI">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
+
+    :root {{
+      --bg:          #0a0a0f;
+      --surface:     #12121a;
+      --surface-2:   #1a1a26;
+      --border:      rgba(255,255,255,0.08);
+      --text:        #e8e8f0;
+      --muted:       #8888a8;
+      --accent:      #6366f1;
+      --accent-warm: #f59e0b;
+      --highlight:   #a78bfa;
+    }}
+
+    html {{ scroll-behavior: smooth; }}
+
+    body {{
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      line-height: 1.6;
+    }}
+
+    /* ── HEADER ── */
+    .site-header {{
+      padding: 40px 24px 0;
+      max-width: 960px;
+      margin: 0 auto;
+      text-align: center;
+    }}
+
+    .brand-logo {{
+      max-width: 240px;
+      height: auto;
+      display: block;
+      margin: 0 auto 20px;
+    }}
+
+    .author-contacts {{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 20px;
+      margin-bottom: 32px;
+    }}
+
+    .author-contacts a {{
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      padding: 4px 16px;
+      transition: color 0.2s;
+    }}
+
+    .author-contacts a:not(:last-child) {{
+      border-right: 1px solid var(--border);
+    }}
+
+    .author-contacts a:hover {{ color: var(--accent); }}
+    .author-contacts svg {{ width: 15px; height: 15px; flex-shrink: 0; }}
+
+    .pub-type-badge {{
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 4px 12px;
+      border-radius: 3px;
+      margin-bottom: 16px;
+    }}
+
+    .brand-title {{
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 10px;
+    }}
+
+    .brand-subtitle {{
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }}
+
+    .brand-subtitle strong {{ color: var(--text); font-weight: 600; }}
+
+    .header-meta {{
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }}
+
+    .header-separator {{
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      margin: 28px 0 0;
+      border: none;
+    }}
+
+    /* ── MAIN ── */
+    main {{
+      max-width: 960px;
+      margin: 48px auto;
+      padding: 0 24px 80px;
+    }}
+
+    .section-header {{
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }}
+
+    .section-title {{
+      font-family: 'Fraunces', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--text);
+    }}
+
+    .section-count {{
+      font-size: 13px;
+      color: var(--muted);
+    }}
+
+    /* ── CARDS ── */
+    .editions-grid {{
+      display: grid;
+      gap: 20px;
+    }}
+
+    .newsletter-card {{
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: fadeInUp 0.4s ease both;
+    }}
+
+    .newsletter-card:hover {{
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }}
+
+    .newsletter-card.card-latest {{
+      border-color: rgba(99,102,241,0.35);
+    }}
+
+    .card-accent-bar {{
+      width: 4px;
+      flex-shrink: 0;
+      background: var(--accent);
+    }}
+
+    .card-latest .card-accent-bar {{
+      background: linear-gradient(180deg, var(--accent), var(--highlight));
+    }}
+
+    .card-body {{
+      padding: 24px 28px;
+      flex: 1;
+    }}
+
+    .card-meta {{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }}
+
+    .latest-tag {{
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      background: var(--accent-warm);
+      color: #0a0a0f;
+      padding: 3px 8px;
+      border-radius: 3px;
+    }}
+
+    .edition-badge {{
+      font-size: 12px;
+      color: var(--highlight);
+      font-weight: 500;
+    }}
+
+    .card-date {{
+      font-size: 13px;
+      color: var(--muted);
+    }}
+
+    .card-title {{
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 10px;
+    }}
+
+    .card-title a {{
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.2s;
+    }}
+
+    .card-title a:hover {{ color: var(--accent); }}
+
+    .card-summary {{
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }}
+
+    .card-cta {{
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }}
+
+    .card-cta:hover {{ opacity: 0.75; }}
+
+    .empty-state {{
+      text-align: center;
+      color: var(--muted);
+      padding: 60px 0;
+      font-size: 15px;
+    }}
+
+    /* ── FOOTER ── */
+    footer {{
+      border-top: 1px solid var(--border);
+      padding: 40px 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }}
+
+    .footer-logo {{
+      max-width: 140px;
+      height: auto;
+      margin: 0 auto 16px;
+      display: block;
+      opacity: 0.7;
+    }}
+
+    footer p {{ margin-bottom: 6px; }}
+
+    .footer-links {{
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 6px 20px;
+      margin: 16px 0 20px;
+    }}
+
+    .footer-links a {{
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.2s;
+    }}
+
+    .footer-links a:hover {{ color: var(--accent); }}
+
+    .update-note {{
+      font-size: 11px;
+      opacity: 0.5;
+      margin-top: 8px;
+    }}
+
+    /* ── ANIMAÇÕES ── */
+    @keyframes fadeInUp {{
+      from {{ opacity: 0; transform: translateY(16px); }}
+      to   {{ opacity: 1; transform: translateY(0); }}
+    }}
+
+    .editions-grid .newsletter-card:nth-child(1) {{ animation-delay: 0.05s; }}
+    .editions-grid .newsletter-card:nth-child(2) {{ animation-delay: 0.10s; }}
+    .editions-grid .newsletter-card:nth-child(3) {{ animation-delay: 0.15s; }}
+    .editions-grid .newsletter-card:nth-child(4) {{ animation-delay: 0.20s; }}
+    .editions-grid .newsletter-card:nth-child(5) {{ animation-delay: 0.25s; }}
+    .editions-grid .newsletter-card:nth-child(n+6) {{ animation-delay: 0.30s; }}
+
+    /* ── RESPONSIVO ── */
+    @media (max-width: 600px) {{
+      .author-contacts {{ flex-direction: column; gap: 4px; }}
+      .author-contacts a {{ border-right: none !important; border-bottom: 1px solid var(--border); padding: 8px 0; }}
+      .author-contacts a:last-child {{ border-bottom: none; }}
+      .card-body {{ padding: 18px 20px; }}
+      .section-header {{ flex-direction: column; }}
+    }}
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <img src="https://mbrasneves.github.io/assets/logo.png"
+         alt="Marco Neves AI"
+         class="brand-logo"
+         onerror="this.style.display='none'">
+
+    <div class="author-contacts">
+      <a href="https://www.linkedin.com/in/mbrasneves/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a href="mailto:mbrasneves@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        mbrasneves@gmail.com
+      </a>
+      <a href="https://web.facebook.com/marco.bras.neves" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        Facebook
+      </a>
+    </div>
+
+    <span class="pub-type-badge">Newsletter Semanal</span>
+    <h1 class="brand-title">Decifra a IA: Lidera o Amanhã</h1>
+    <p class="brand-subtitle">por <strong>Marco Neves AI</strong> — Consultoria e Formação em Inteligência Artificial</p>
+    <p class="header-meta">{total} {"edição publicada" if total == 1 else "edições publicadas"} · Leiria, Portugal</p>
+    <hr class="header-separator">
+  </header>
+
+  <main>
+    <div class="section-header">
+      <h2 class="section-title">Todas as edições</h2>
+      <span class="section-count">{total} {"edição" if total == 1 else "edições"}</span>
+    </div>
+
+    <div class="editions-grid">
+      {cards_html}
+      {empty_html}
+    </div>
+  </main>
+
+  <footer>
+    <img src="https://mbrasneves.github.io/assets/logo.png"
+         alt="Marco Neves AI"
+         class="footer-logo"
+         onerror="this.style.display='none'">
+    <p>Marco Neves AI — Consultoria e Formação em Inteligência Artificial</p>
+    <p>Leiria, Portugal</p>
+    <p>"Decifra a IA: Lidera o Amanhã" é uma newsletter semanal sobre IA com foco em educação, organizações e mercado de trabalho em Portugal e na Europa.</p>
+    <div class="footer-links">
+      <a href="https://www.linkedin.com/in/mbrasneves/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:mbrasneves@gmail.com">mbrasneves@gmail.com</a>
+      <a href="https://web.facebook.com/marco.bras.neves" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://mbrasneves.github.io/AnalisesIA/">Análises IA</a>
+    </div>
+    <p class="update-note">Índice atualizado automaticamente em {now}</p>
+    <p class="update-note">© {datetime.now().year} Marco Neves AI</p>
+  </footer>
+
+</body>
+</html>'''
+
+
+if __name__ == '__main__':
+    editions = collect_editions()
+    html = build_index(editions)
+    Path('index.html').write_text(html, encoding='utf-8')
+    print(f"index.html gerado com {len(editions)} edição(ões).")
 
